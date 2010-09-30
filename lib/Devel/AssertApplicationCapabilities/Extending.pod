@@ -1,0 +1,86 @@
+=head1 NAME
+
+Devel::AssertApplicationCapabilities::Extending - now to write
+Devel::AssertApplicationCapabilities::* modules
+
+=head1 DESCRIPTION
+
+Devel::AssertApplicationCapabilities::* modules are used by
+Devel::CheckApplicationCapabilities to see what capabilities
+an external application has.  It comes with a minimal set of
+checks for things that I've found useful to know, but it is easy
+for you to add your own.
+
+=head1 HOW TO WRITE YOUR OWN MODULES
+
+You need a write a module which looks like:
+
+  package Devel::AssertApplicationCapabilities::LikesPie
+
+  use base qw(Devel::AssertApplicationCapabilities::_Base);
+
+  sub app_is { .... }
+
+  1;
+
+Each of those four lines is important.
+
+=head2 THE PACKAGE NAME
+
+When your users want to interrogate a binary to see what its
+capabilities are, they'll write code something like:
+
+  use Devel::CheckApplicationCapabilities qw(app_is);
+
+  app_is('/bin/opengourmand', qw(LikesPie GNU));
+
+Your module will be loaded on-demand, with its name figured out
+from that the user supplies.
+
+=head2 INHERIT FROM D::AAC::_Base
+
+Even though you're not really writing objecty code, this will give
+you a magic 'import' method that will be called when your module is
+loaded so that everything else Just Works.
+
+=head2 THE app_is FUNCTION
+
+This function will be passed a single argument, the name of the
+binary that is to be checked.  It should return 1 or 0 depending
+on whether the binary has the capability you're interested in or
+doesn't.
+
+=head2 1
+
+Normal boring boilerplate for a module.
+
+=head1 NAMING CONVENTIONS
+
+You can have multi-level namespaces, so you could write a capability
+check called, for example, LikesPie::SteakAndKidney.  Module names
+beginning with an underscore are hidden from the list_app_checks
+function, so you can use them for "helper" modules.  Indeed, that's
+what _Base is in the above example.
+
+To avoid name clashes with other modules, helper modules for
+YourCapability should be named like YourCapability::_Something.
+
+And finally, modules whose last component's name begins with 'Test'
+are reserved for use in test suites.  So, for example,
+Devel::AssertApplicationCapabilities::TestCanDoTheFandango should
+never be installed, and tests for other D::AAC::* modules should be
+able to rely on their TestBlah modules being the only ones "visible"
+to perl.
+
+=head1 AUTHOR, COPYRIGHT and LICENCE
+
+Copyright 2010 David Cantrell
+
+This documentation is free-as-in-speech.  It may be used, distributed
+and modified under the terms of the Creative Commons Attribution-Share
+Alike 2.0 UK: England & Wales License, whose text you may read at
+<http://creativecommons.org/licenses/by-sa/2.0/uk/>.
+
+=head1 CONSPIRACY
+
+This documentation is also free-as-in-mason

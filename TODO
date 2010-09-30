@@ -1,0 +1,6 @@
+use-devel-checkapplicationcapabilities
+
+tar -z
+tar -j
+GNU make
+cp -l

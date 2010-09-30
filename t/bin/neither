@@ -1,0 +1,13 @@
+#!perl
+
+use strict;
+use warnings;
+
+my %args = (
+  nothing => sub { exit(0) },
+);
+while($_ = shift()) {
+  $args{$_}->() if($args{$_});
+}
+
+exit(1);

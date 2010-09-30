@@ -1,0 +1,10 @@
+This module provides a way of checking what capabilities various binaries
+on your system have, such as whether tar(1) supports the -z flag.  It is
+extensible with add-on modules.
+
+To install, do the usual dance:
+
+    perl Makefile.PL
+    make
+    make test
+    make install
