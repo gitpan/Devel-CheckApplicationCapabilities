@@ -1,5 +1,5 @@
 ARTISTIC.txt
-CHANGES
+CHANGELOG
 GPL2.txt
 lib/Devel/AssertApplicationCapabilities/GNU.pm
 lib/Devel/AssertApplicationCapabilities/GNUcp.pm
@@ -25,4 +25,9 @@ t/lib/Devel/AssertApplicationCapabilities/TestCanPass.pm
 lib/Devel/AssertApplicationCapabilities/_Base.pm
 lib/Devel/AssertApplicationCapabilities/Extending.pod
 t/lib/Devel/AssertApplicationCapabilities/Hlagh/TestCanPass.pm
-META.yml                                 Module meta-data (added by MakeMaker)
+lib/Devel/AssertApplicationCapabilities/cpCanHardLink.pm
+t/cpcanhardlink.t
+t/cpsupportsminusal.t
+lib/Devel/AssertApplicationCapabilities/cpSupportsMinusal.pm
+META.yml                                 Module YAML meta-data (added by MakeMaker)
+META.json                                Module JSON meta-data (added by MakeMaker)

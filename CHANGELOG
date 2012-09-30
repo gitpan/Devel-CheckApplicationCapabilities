@@ -1,0 +1,5 @@
+1.1     2012-09-30      Doco fixes;
+                        Don't confuse support for -al with cp being GNU;
+                        New tests for cp -l and cp -al
+
+1.0     2010-09-30      Original release

@@ -8,7 +8,7 @@ use Cwd;
 
 use vars qw($VERSION @ISA @EXPORT_OK %EXPORT_TAGS);
 
-$VERSION = '1.0';
+$VERSION = '1.1';
 
 # localising prevents the warningness leaking out of this module
 local $^W = 1;    # use warnings is a 5.6-ism
@@ -44,13 +44,6 @@ the -z argument and so can be expected to support .tar.gz files.
       if(app_is('tar' => qw(TarMinusZ)));
     print "Yay, I can bzip too!\n"
       if(app_is('tar' => qw(TarMinusJ TarMinusZ)));
-
-=head1 USING IT IN Makefile.PL or Build.PL
-
-If you want to use this from Makefile.PL or Build.PL, do
-not simply copy the module into your distribution as this may cause
-problems when PAUSE and search.cpan.org index the distro.  Instead, use
-the use-devel-assertos script.
 
 =head1 FUNCTIONS
 
@@ -276,7 +269,7 @@ David Cantrell E<lt>F<david@cantrell.org.uk>E<gt>
 
 =head1 SOURCE CODE REPOSITORY
 
-L<http://www.cantrell.org.uk/cgit/cgit.cgi/perlmodules/>
+L<git://github.com/DrHyde/perl-modules-Devel-CheckApplicationCapabilities.git>
 
 =head1 COPYRIGHT and LICENCE
 

@@ -3,32 +3,14 @@ package Devel::AssertApplicationCapabilities::GNUcp;
 use strict;
 use vars qw($VERSION);
 local $^W = 1;
-$VERSION = '1.0';
+$VERSION = '1.01';
 use base qw(Devel::AssertApplicationCapabilities::_Base);
 
-use Devel::CheckApplicationCapabilities;
-use File::Temp qw(tempdir);
+use Devel::AssertApplicationCapabilities::GNU;
 
 sub app_is {
-  my $app = shift;
-
-  my $dir = tempdir();
-  open(TEMPFILE, '>', "$dir/foo") ||
-      die("Can't create $dir/foo to test whether $app supports -al\n");
-  print TEMPFILE "Testing";
-  close(TEMPFILE);
-
-  Devel::CheckApplicationCapabilities::_with_STDERR_closed(sub {
-    system($app, '-al', "$dir/foo", "$dir/bar");
-  });
-
-  my $rval = 0;
-  if(-e "$dir/bar" && ((stat("$dir/foo"))[1] == (stat("$dir/bar"))[1])) { # same inode
-      $rval = 1;
-  }
-  unlink "$dir/foo", "$dir/bar";
-  rmdir $dir;
-  return $rval;
+  return 0 unless($_[0] =~ /\bcp(\.(exe|com))$/);
+  return Devel::AssertApplicationCapabilities::GNU::app_is(@_);
 }
 
 =head1 NAME
@@ -39,12 +21,10 @@ Devel::AssertApplicationCapabilities::GNUcp - check that a binary is GNU cp
 
 =head1 BUGS/WARNINGS/LIMITATIONS
 
-This is a heuristic.  That means that it can be wrong.  Bug reports are
-most welcome, and should include the output from 'cp --version' as well
-as, of course, telling me what the bug is.
-
-The check is actually whether 'cp -al blah/foo blah/bar' results in two
-files with the same inode number, as well as whether cp looks GNU-ish.
+This is a wrapper around Devel::AssertApplicationCapabilities::GNUcp
+that also checks that the binary is called 'cp'.  It exists solely
+for backward compatibility reasons.  The old check whether it supports
+the -al argument is now, correctly, in ...::cpSupportsMinusal.
 
 =head1 SEE ALSO
 
@@ -52,7 +32,7 @@ L<Devel::AssertApplicationCapabilities::GNU>
 
 =head1 SOURCE CODE REPOSITORY
 
-L<http://www.cantrell.org.uk/cgit/cgit.cgi/perlmodules/>
+L<git://github.com/DrHyde/perl-modules-Devel-CheckApplicationCapabilities.git>
 
 =head1 AUTHOR, COPYRIGHT and LICENCE
 
